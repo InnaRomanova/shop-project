@@ -4,11 +4,14 @@ import { API_KEY, API_URL } from "../config";
 import Preloader from "./Preloader";
 import GoodsList from "./GoodsList";
 import Cart from "./Cart";
+import BasketList from "./BasketList";
 
 function Shop() {
     const [goods, setGoods] = useState([]);
     const [loading, setLoading] = useState(true);
     const [order, setOrder] = useState([]);
+    const [isBasketShow, setBasketShow] = useState(false);
+    const [count, setCount] = ('0');
 
     //функция addToBasket, которая принимает объект 
     //товара и добавляет его в состояние заказа order.
@@ -38,6 +41,26 @@ function Shop() {
         }
     };
 
+    //удаление товара из коризины
+    const removeFromBasket = (itemId) => {
+        //обойдем order  отфильтруем его и уберем лишнее
+        const newOrder = order.filter(el => el.id !== itemId)
+        setOrder(newOrder);
+    }
+
+    //увеличение/уменьшение количества товаров в корзине
+    const hanldeClickPlu = () => {
+        setCount((prevState) => ({ count: prevState.count + 1 }))
+    }
+
+    const handleClickMin = () => {
+        setCount({ count: count - 1 })
+    }
+
+    const handleBasketShow = () => {
+        setBasketShow(!isBasketShow);
+    }
+
 
     useEffect(function getGoods() {
         fetch(API_URL, {
@@ -56,9 +79,15 @@ function Shop() {
     return (
 
         <main className="container content">
-            <Cart quantity={order.length} />
-            {loading ? <Preloader /> : <GoodsList goods={goods} 
-            addToBasket={addToBasket}/>}
+            <Cart quantity={order.length}
+                handleBasketShow={handleBasketShow} />
+            {loading ? <Preloader /> : <GoodsList goods={goods}
+                addToBasket={addToBasket} />}
+            {isBasketShow && <BasketList order={order}
+                handleBasketShow={handleBasketShow}
+                removeFromBasket={removeFromBasket} 
+                hanldeClickPlu={hanldeClickPlu}
+                handleClickMin={handleClickMin} />}
         </main>
     )
 }
