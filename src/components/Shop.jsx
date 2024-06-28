@@ -11,7 +11,6 @@ function Shop() {
     const [loading, setLoading] = useState(true);
     const [order, setOrder] = useState([]);
     const [isBasketShow, setBasketShow] = useState(false);
-    const [count, setCount] = ('0');
 
     //функция addToBasket, которая принимает объект 
     //товара и добавляет его в состояние заказа order.
@@ -48,13 +47,36 @@ function Shop() {
         setOrder(newOrder);
     }
 
-    //увеличение/уменьшение количества товаров в корзине
-    const hanldeClickPlu = () => {
-        setCount((prevState) => ({ count: prevState.count + 1 }))
+    //увеличенение/добавление количества товаров в корзине
+    const hanldeClickPlu = (itemId) => {
+        const newOrder = order.map(el => {
+            if (el.id === itemId) {
+                const newQuantity = el.quantity + 1;
+                return {
+                    ...el,
+                    quantity: newQuantity
+                }
+            } else {
+                return el
+            }
+        })
+        setOrder(newOrder);
     }
 
-    const handleClickMin = () => {
-        setCount({ count: count - 1 })
+    //уменьшение количества товаров в корзине
+    const handleClickMin = (itemId) => {
+        const newOrder = order.map(el => {
+            if (el.id === itemId) {
+                const newQuantity = el.quantity - 1;
+                return {
+                    ...el,
+                    quantity: newQuantity >= 0 ? newQuantity : 0,
+                }
+            } else {
+                return el
+            }
+        })
+        setOrder(newOrder);
     }
 
     const handleBasketShow = () => {
@@ -66,7 +88,7 @@ function Shop() {
         fetch(API_URL, {
             headers: {
                 'Authorization': API_KEY, //запрос
-            }
+            },
             //ответ: преобразуй в json
         }).then(response => response.json())
             .then(data => {
@@ -85,7 +107,7 @@ function Shop() {
                 addToBasket={addToBasket} />}
             {isBasketShow && <BasketList order={order}
                 handleBasketShow={handleBasketShow}
-                removeFromBasket={removeFromBasket} 
+                removeFromBasket={removeFromBasket}
                 hanldeClickPlu={hanldeClickPlu}
                 handleClickMin={handleClickMin} />}
         </main>

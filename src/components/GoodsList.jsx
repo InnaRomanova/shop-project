@@ -1,21 +1,21 @@
-import GoodsItem from "./GoodsItem";
+import React from 'react';
+import BasketItem from './BasketItem';
+import GoodsItem from './GoodsItem';
 
 function GoodsList(props) {
-    //через пропсы будет получать массив данных
     const { goods = [], addToBasket = Function.prototype } = props;
-    if (!goods.lenght) {
-        return <h3>Nothing here</h3>
+
+    if (!goods.length) {
+        return <h3>Nothing here</h3>;
     }
 
     return (
-        <div className="goods">
+        <div className='goods'>
             {goods.map(item => (
-                <GoodsItem key={item.id} {...item} 
-                addToBasket={addToBasket}/>
+                <GoodsItem key={item.id} {...item} addToBasket={addToBasket} />
             ))}
         </div>
-
-    )
+    );
 }
 
 export default GoodsList;
