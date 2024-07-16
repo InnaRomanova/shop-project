@@ -16,11 +16,12 @@ function BasketList(props) {
 
     return (
         <ul className="collection basket-list">
-            <li cliss="collection-item ictive">Корзина</li>
+            <li className="collection-item active">Корзина</li>
             {order.length ? order.map(item => (
                 <BasketItem
-                    key={item.id} {...item}
+                    key={item.id} 
                     removeFromBasket={removeFromBasket}
+                    {...item}                    
                     handleClickMin={handleClickMin}
                     hanldeClickPlu={hanldeClickPlu} />
             )) : (<li className="collection-item">Корзина пуста</li>)}

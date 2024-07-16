@@ -2,7 +2,7 @@
 
 function BasketItem(props) {
     const {
-        mainId,
+        id,
         displayName,
         price,
         quantity,
@@ -13,16 +13,19 @@ function BasketItem(props) {
 
     return (
         <>
-            <li class="collection-item">
-                {displayName} * <i className="material-icons basket-quantity" onClick={() => handleClickMin(mainId)}>remove</i> x{quantity} = {' '}
-                <i className="material-icons basket-quantity" onClick={() => hanldeClickPlu(mainId)}>add</i>
+            <li className="collection-item">
+                {displayName} *
+                {/* <i className="material-icons basket-quantity">
+                    remove</i>  */}
+                    x {quantity} = {' '}
+                <i className="material-icons basket-quantity">add</i>
                 {price * quantity} руб.
-                <button onClick={hanldeClickPlu}>+</button>
+                <button onClick={() => hanldeClickPlu(id)}>+ </button>
                 <span>{count}</span>
-                <button onClick={handleClickMin}>-</button>
-                <span href="#!" class="secondary-content"
-                    onClick={() => removeFromBasket(mainId)}>
-                    <i class="material-icons basket-delete">close</i></span></li>
+                <button onClick={() => handleClickMin(id)}> -</button>
+                <span className="secondary-content"
+                    onClick={() => removeFromBasket(id)}>
+                    <i className="material-icons basket-delete">close</i></span></li>
         </>
     )
 }

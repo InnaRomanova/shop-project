@@ -12,6 +12,7 @@ function Shop() {
     const [order, setOrder] = useState([]);
     const [isBasketShow, setBasketShow] = useState(false);
 
+
     //функция addToBasket, которая принимает объект 
     //товара и добавляет его в состояние заказа order.
     const addToBasket = (item) => {
@@ -40,7 +41,7 @@ function Shop() {
         }
     };
 
-    //удаление товара из коризины
+    //удаление товара из корзины
     const removeFromBasket = (itemId) => {
         //обойдем order  отфильтруем его и уберем лишнее
         const newOrder = order.filter(el => el.id !== itemId)
