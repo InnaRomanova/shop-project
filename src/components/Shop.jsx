@@ -5,12 +5,14 @@ import Preloader from "./Preloader";
 import GoodsList from "./GoodsList";
 import Cart from "./Cart";
 import BasketList from "./BasketList";
+import Alert from "./Alert";
 
 function Shop() {
     const [goods, setGoods] = useState([]);
     const [loading, setLoading] = useState(true);
     const [order, setOrder] = useState([]);
     const [isBasketShow, setBasketShow] = useState(false);
+    const [alertName, setAlertName] = useState('');
 
 
     //функция addToBasket, которая принимает объект 
@@ -18,7 +20,7 @@ function Shop() {
     const addToBasket = (item) => {
         //проверочый индекс
         const itemIndex = order.findIndex(
-            orderItem => orderItem.id === item);
+            (orderItem) => orderItem.id === item.id);
 
         if (itemIndex < 0) {
             const newItem = {
@@ -39,12 +41,13 @@ function Shop() {
             })
             setOrder(newOrder);
         }
+        setAlertName(item.name);
     };
 
     //удаление товара из корзины
     const removeFromBasket = (itemId) => {
         //обойдем order  отфильтруем его и уберем лишнее
-        const newOrder = order.filter(el => el.id !== itemId)
+        const newOrder = order.filter((el) => el.id !== itemId)
         setOrder(newOrder);
     }
 
@@ -60,7 +63,7 @@ function Shop() {
             } else {
                 return el
             }
-        })
+        });
         setOrder(newOrder);
     }
 
@@ -82,6 +85,10 @@ function Shop() {
 
     const handleBasketShow = () => {
         setBasketShow(!isBasketShow);
+    }
+
+    const closeAlert = () => {
+        setAlertName('');
     }
 
 
@@ -106,11 +113,15 @@ function Shop() {
                 handleBasketShow={handleBasketShow} />
             {loading ? <Preloader /> : <GoodsList goods={goods}
                 addToBasket={addToBasket} />}
-            {isBasketShow && <BasketList order={order}
-                handleBasketShow={handleBasketShow}
-                removeFromBasket={removeFromBasket}
-                hanldeClickPlu={hanldeClickPlu}
-                handleClickMin={handleClickMin} />}
+            {isBasketShow && (
+                <BasketList order={order}
+                    handleBasketShow={handleBasketShow}
+                    removeFromBasket={removeFromBasket}
+                    hanldeClickPlu={hanldeClickPlu}
+                    handleClickMin={handleClickMin} />)}
+            {alertName && <Alert
+                name={alertName}
+                closeAlert={closeAlert} />}
         </main>
     )
 }

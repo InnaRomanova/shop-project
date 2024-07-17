@@ -17,12 +17,14 @@ function BasketItem(props) {
                 {displayName} *
                 {/* <i className="material-icons basket-quantity">
                     remove</i>  */}
-                    x {quantity} = {' '}
-                <i className="material-icons basket-quantity">add</i>
+                x {quantity} = {' '}
+                {/* <i className="material-icons basket-quantity"></i> */}
                 {price * quantity} руб.
-                <button onClick={() => hanldeClickPlu(id)}>+ </button>
+                <button onClick={() => hanldeClickPlu(id)}
+                    className="material-icons basket-quantity">add </button>
                 <span>{count}</span>
-                <button onClick={() => handleClickMin(id)}> -</button>
+                <button onClick={() => handleClickMin(id)}
+                    className="material-icons basket-quantity">remove</button>
                 <span className="secondary-content"
                     onClick={() => removeFromBasket(id)}>
                     <i className="material-icons basket-delete">close</i></span></li>

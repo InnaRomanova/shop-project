@@ -19,13 +19,19 @@ function BasketList(props) {
             <li className="collection-item active">Корзина</li>
             {order.length ? order.map(item => (
                 <BasketItem
-                    key={item.id} 
+                    key={item.id}
                     removeFromBasket={removeFromBasket}
-                    {...item}                    
+                    {...item}
                     handleClickMin={handleClickMin}
                     hanldeClickPlu={hanldeClickPlu} />
             )) : (<li className="collection-item">Корзина пуста</li>)}
-            <li className="collection-item active">Общая стоимость: {totalPrice} руб.</li>
+            <li className="collection-item active">
+                Общая стоимость: {totalPrice} руб.
+            </li>
+            <li className="collection-item">
+                <button className="btn btn-small">Оформить</button>
+            </li>
+
             <i className='material-icons basket-close'
                 onClick={handleBasketShow}>close</i>
         </ul>
