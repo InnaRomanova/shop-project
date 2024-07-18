@@ -5,20 +5,20 @@ function BasketItem(props) {
     const {
         id,
         name,
+        displayName,
         price,
         quantity,
         count,
-        removeFromBasket = Function.prototype,
+        //removeFromBasket = Function.prototype,
         hanldeClickPlu = Function.prototype,
         handleClickMin = Function.prototype } = props;
 
-        const {example} = useContext(ShopContext);
-        console.log(example);
+        const {removeFromBasket, incQuantity, decQuantity} = useContext(ShopContext);
 
     return (
         <>
             <li className="collection-item">
-                {name} *
+                {displayName} *
                 {/* <i className="material-icons basket-quantity">
                     remove</i>  */}
                 x {quantity} = {' '}
